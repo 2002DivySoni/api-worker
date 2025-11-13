@@ -7,12 +7,17 @@ app = Flask(__name__)
 @app.route('/fetch_data', methods=['GET'])
 def fetch_data():
     keyword = request.args.get('keyword')
+    api_key = request.args.get('api_key')  # get API key from URL
+
     if not keyword:
         return jsonify({"error": "keyword is required"}), 400
 
+    if not api_key:
+        return jsonify({"error": "api_key is required"}), 400
+
     base_url = "https://forumscout.app/api/"
     headers = {
-        "X-API-Key": "29469dadb19de6b4eb0aaa3fcc5fcbf6f3a77d2c71f945c75e66a6f5532da92c",
+        "X-API-Key": api_key,  # use dynamic API key
         "Content-Type": "application/json",
     }
 
